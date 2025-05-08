@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Monitor Hackathon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-100 min-h-screen p-8 overflow-x-hidden">  <!-- Login Page -->  <div id="loginPage" class="flex flex-col items-center justify-center min-h-screen transition-all duration-700">
+    <h1 class="text-4xl font-bold mb-6">Login</h1>
+    <select id="roleSelect" class="p-3 rounded-lg mb-4">
+      <option value="family">Family</option>
+      <option value="staff">Medical Staff</option>
+    </select>
+    <button onclick="login()" class="p-3 bg-blue-500 text-white rounded-lg">Login</button>
+  </div>  <!-- Family Dashboard -->  <div id="familyDashboard" class="hidden transition-all duration-700">
+    <h1 class="text-3xl font-bold mb-6">Family Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card">Nutrients Monitoring</div>
+      <div class="card" onclick="showLiveFeed()">Live Health Feed</div>
+      <div class="card">Daily Reports</div>
+      <div class="card">Doctor Info</div>
+      <div class="card">Daily Supplements</div>
+    </div><!-- Live Feed -->
+<div id="liveFeed" class="mt-8 hidden">
+  <h2 class="text-2xl font-bold mb-4">📈 Live Heartbeat Feed</h2>
+  <canvas id="liveChart"></canvas>
+</div>
+
+  </div>  <!-- Medical Staff Dashboard -->  <div id="staffDashboard" class="hidden transition-all duration-700">
+    <h1 class="text-3xl font-bold mb-6">Medical Staff Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card">Medical Parameters</div>
+      <div class="card">Detailed Reports</div>
+      <div class="card">Technical Analytics</div>
+      <div class="card">Test Reports</div>
+      <div class="card">Prescription</div>
+      <div class="card">Patient Details</div>
+    </div><div class="mt-8">
+  <h2 class="text-2xl font-bold mb-4">Vitals Progress</h2>
+  <div class="bg-white p-4 rounded-2xl shadow-lg">
+    <div class="mb-4">
+      <p>Heart Rate</p>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-red-500 h-4 rounded-full" style="width: 72%"></div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <p>Oxygen Level</p>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-green-500 h-4 rounded-full" style="width: 95%"></div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <p>Blood Pressure</p>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-blue-500 h-4 rounded-full" style="width: 80%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>  <!-- Emergency Alert Popup -->  <div id="alertPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-2xl shadow-lg text-center animate-bounce">
+      <h2 class="text-2xl font-bold mb-4">🚨 Emergency Alert!</h2>
+      <p>Patient in Bed 4 is critical. Call nurse immediately!</p>
+      <button onclick="closeAlert()" class="mt-4 p-2 bg-red-500 text-white rounded-lg">Dismiss</button>
+    </div>
+  </div>  <style>
+    .card {
+      padding: 2rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #f0f0ff;
+    }
+  </style>  <script>
+    let chart;
+
+    function login() {
+      const role = document.getElementById('roleSelect').value;
+      document.getElementById('loginPage').classList.add('hidden');
+
+      if (role === 'family') {
+        document.getElementById('familyDashboard').classList.remove('hidden');
+      } else {
+        document.getElementById('staffDashboard').classList.remove('hidden');
+      }
+
+      // Start checking for alerts (simulate every 5 sec)
+      setInterval(() => {
+        if (Math.random() < 0.2) {
+          showAlert();
+        }
+      }, 5000);
+    }
+
+    function showAlert() {
+      document.getElementById('alertPopup').classList.remove('hidden');
+    }
+
+    function closeAlert() {
+      document.getElementById('alertPopup').classList.add('hidden');
+    }
+
+    function showLiveFeed() {
+      document.getElementById('liveFeed').classList.remove('hidden');
+      if (!chart) initChart();
+    }
+
+    function initChart() {
+      const ctx = document.getElementById('liveChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from({length: 20}, (_, i) => i),
+          datasets: [{
+            label: 'Heartbeat',
+            data: Array.from({length: 20}, () => 60 + Math.random() * 40),
+            borderColor: 'red',
+            fill: false,
+          }]
+        },
+        options: {
+          animation: false,
+          scales: { y: { min: 50, max: 120 } }
+        }
+      });
+
+      setInterval(() => {
+        chart.data.datasets[0].data.shift();
+        chart.data.datasets[0].data.push(60 + Math.random() * 40);
+        chart.update();
+      }, 500);
+    }
+  </script></body>
+</html>
