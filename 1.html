@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediAlert - Healthcare Monitoring System</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediAlert - Healthcare Monitoring System</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
     :root {
       --primary: #2c3e50;
       --secondary: #3498db;
@@ -396,159 +397,251 @@
         justify-content: center;
       }
     }
-  </style>
+  
+.login-section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10%;
+  background-image: url('https://media.istockphoto.com/id/1423366794/photo/hospital-staff-meeting.jpg?s=612x612&w=0&k=20&c=mn-ihDTUdFAjkqJEAlU3QNjd1eia3GmHM8x0n_NDTQo=');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.login-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(44, 62, 80, 0.7), rgba(52, 152, 219, 0.7));
+  z-index: 1;
+}
+.login-container {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.login-header h1 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.login-header p {
+  color: #7f8c8d;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-group label {
+  font-weight: 600;
+  color: var(--primary);
+}
+.form-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.role-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.role-option {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.role-option:hover, .role-option.active {
+  border-color: var(--secondary);
+  background-color: rgba(52, 152, 219, 0.1);
+}
+.role-option i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+.login-button {
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.login-button:hover {
+  background-color: #2980b9;
+}
+.forgot-password {
+  text-align: center;
+  margin-top: 1rem;
+}
+.forgot-password a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+</style>
 </head>
 <body>
-  <!-- Page Container -->
-  <div id="app-container">
-    <!-- Login Page -->
-    <div class="login-section" id="login-section">
-      <div class="login-container">
-        <div class="login-header">
-          <h1>MediAlert</h1>
-          <p>Healthcare Monitoring System</p>
-        </div>
-        
-        <div class="login-form">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username">
-          </div>
-          
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password">
-          </div>
-          
-          <div class="role-selector">
-            <div class="role-option active" id="family-role">
-              <i class="fas fa-users"></i>
-              <p>Family</p>
-            </div>
-            
-            <div class="role-option" id="medical-role">
-              <i class="fas fa-user-md"></i>
-              <p>Medical Staff</p>
-            </div>
-          </div>
-          
-          <button class="login-button" id="login-button">Login</button>
-          
-          <div class="forgot-password">
-            <a href="#">Forgot password?</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Family Dashboard -->
-    <div id="family-dashboard" style="display: none;">
-      <header>
-        <div class="container header-content">
-          <div class="logo">
-            <i class="fas fa-heartbeat"></i>
-            <span>MediAlert</span>
-          </div>
-          
-          <nav>
-            <ul>
-              <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-              <li><a href="#"><i class="fas fa-chart-line"></i> Health Feed</a></li>
-              <li><a href="#"><i class="fas fa-file-medical"></i> Reports</a></li>
-              <li><a href="#"><i class="fas fa-bell"></i> Alerts</a></li>
-              <li><a href="#" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      
-      <main class="container dashboard">
-        <div class="dashboard-header">
-          <h1>Welcome back, John</h1>
-          <p>Here's the latest information about your loved one</p>
-        </div>
-        
-        <div class="dashboard-grid">
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-apple-alt"></i>
-              <h2>Nutrients Monitoring</h2>
-            </div>
-            <p>Track daily nutrition intake and dietary requirements.</p>
-            <a href="#" class="card-link">View Details →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-heartbeat"></i>
-              <h2>Live Health Feed</h2>
-            </div>
-            <p>Real-time updates on vital signs and health parameters.</p>
-            <a href="#" class="card-link">View Live Feed →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-file-medical-alt"></i>
-              <h2>Daily Reports</h2>
-            </div>
-            <p>Summary of daily health status and activities.</p>
-            <a href="#" class="card-link">View Reports →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-user-md"></i>
-              <h2>Doctor Information</h2>
-            </div>
-            <p>Contact details and schedule of attending physicians.</p>
-            <a href="#" class="card-link">View Doctor Info →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-pills"></i>
-              <h2>Daily Supplements</h2>
-            </div>
-            <p>Track medication schedule and supplement intake.</p>
-            <a href="#" class="card-link">View Supplements →</a>
-          </div>
-        </div>
-        
-        <div class="patient-monitoring">
-          <div class="section-header">
-            <h2>Patient Health Overview</h2>
-            <div>
-              <button class="login-button">Download Report</button>
-            </div>
-          </div>
-          
-          <div class="patient-stats">
-            <div class="stat-card">
-              <h3>Heart Rate</h3>
-              <div class="stat-value">72 BPM</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Blood Pressure</h3>
-              <div class="stat-value">120/80</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Oxygen Level</h3>
-              <div class="stat-value">98%</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Temperature</h3>
-              <div class="stat-value">98.6°F</div>
-            </div>
-          </div>
-          
-          <div id="liveFeed" class="mt-8">
-            <h2 class="text-2xl font-bold mb-4">📈 Live Heartbeat Feed</h2>
-            <canvas id="liveChart"></canvas>
-          </div><script>
+<!-- Page Container -->
+<div id="app-container">
+<!-- Login Page -->
+
+<div class="login-section" id="login-section">
+<div class="login-container">
+<div class="login-header">
+<h1>MediAlert</h1>
+<p>Healthcare Monitoring System</p>
+</div>
+<div class="login-form">
+<div class="form-group">
+<label for="username">Username</label>
+<input id="username" placeholder="Enter your username" type="text"/>
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input id="password" placeholder="Enter your password" type="password"/>
+</div>
+<div class="role-selector">
+<div class="role-option active" id="family-role">
+<i class="fas fa-users"></i>
+<p>Family</p>
+</div>
+<div class="role-option" id="medical-role">
+<i class="fas fa-user-md"></i>
+<p>Medical Staff</p>
+</div>
+</div>
+<button class="login-button" id="login-button">Login</button>
+<div class="forgot-password">
+<a href="#">Forgot password?</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Family Dashboard -->
+<div id="family-dashboard" style="display: none;">
+<header>
+<div class="container header-content">
+<div class="logo">
+<i class="fas fa-heartbeat"></i>
+<span>MediAlert</span>
+</div>
+<nav>
+<ul>
+<li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+<li><a href="#"><i class="fas fa-chart-line"></i> Health Feed</a></li>
+<li><a href="#"><i class="fas fa-file-medical"></i> Reports</a></li>
+<li><a href="#"><i class="fas fa-bell"></i> Alerts</a></li>
+<li><a class="logout-button" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container dashboard">
+<div class="dashboard-header">
+<h1>Welcome back, John</h1>
+<p>Here's the latest information about your loved one</p>
+</div>
+<div class="dashboard-grid">
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-apple-alt"></i>
+<h2>Nutrients Monitoring</h2>
+</div>
+<p>Track daily nutrition intake and dietary requirements.</p>
+<a class="card-link" href="#">View Details →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-heartbeat"></i>
+<h2>Live Health Feed</h2>
+</div>
+<p>Real-time updates on vital signs and health parameters.</p>
+<a class="card-link" href="#">View Live Feed →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-file-medical-alt"></i>
+<h2>Daily Reports</h2>
+</div>
+<p>Summary of daily health status and activities.</p>
+<a class="card-link" href="#">View Reports →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-user-md"></i>
+<h2>Doctor Information</h2>
+</div>
+<p>Contact details and schedule of attending physicians.</p>
+<a class="card-link" href="#">View Doctor Info →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-pills"></i>
+<h2>Daily Supplements</h2>
+</div>
+<p>Track medication schedule and supplement intake.</p>
+<a class="card-link" href="#">View Supplements →</a>
+</div>
+</div>
+<div class="patient-monitoring">
+<div class="section-header">
+<h2>Patient Health Overview</h2>
+<div>
+<button class="login-button">Download Report</button>
+</div>
+</div>
+<div class="patient-stats">
+<div class="stat-card">
+<h3>Heart Rate</h3>
+<div class="stat-value">72 BPM</div>
+</div>
+<div class="stat-card">
+<h3>Blood Pressure</h3>
+<div class="stat-value">120/80</div>
+</div>
+<div class="stat-card">
+<h3>Oxygen Level</h3>
+<div class="stat-value">98%</div>
+</div>
+<div class="stat-card">
+<h3>Temperature</h3>
+<div class="stat-value">98.6°F</div>
+</div>
+</div>
+<div class="mt-8" id="liveFeed">
+<h2 class="text-2xl font-bold mb-4">📈 Live Heartbeat Feed</h2>
+<canvas id="liveChart"></canvas>
+</div><script>
           let chart;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -583,218 +676,193 @@ function initChart() {
   }, 500);
 }
 </script>
-        <br><br>
-        <div class="emergency-alert">
-          <div class="alert-header">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Emergency Alert System</h2>
-          </div>
-          <div class="alert-content">
-            <p>The system continuously monitors medical parameters 24/7. If the patient's condition falls below critical thresholds, immediate alerts will be sent to your phone and to stationed medical staff with the patient's location details.</p>
-          </div>
-        </div>
-      </main>
-      
-      <footer>
-        <div class="container footer-content">
-          <div class="footer-column">
-            <h3>MediAlert</h3>
-            <p>Advanced healthcare monitoring for your peace of mind.</p>
-          </div>
-          
-          <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#">Dashboard</a></li>
-              <li><a href="#">Health Feed</a></li>
-              <li><a href="#">Reports</a></li>
-              <li><a href="#">Alerts</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-column">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="copyright">
-          <p>&copy; 2025 MediAlert - Healthcare Monitoring System. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-    
-    <!-- Medical Staff Dashboard -->
-    <div id="medical-dashboard" style="display: none;">
-      <header>
-        <div class="container header-content">
-          <div class="logo">
-            <i class="fas fa-heartbeat"></i>
-            <span>MediAlert</span>
-          </div>
-          
-          <nav>
-            <ul>
-              <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-              <li><a href="#"><i class="fas fa-procedures"></i> Patients</a></li>
-              <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
-              <li><a href="#"><i class="fas fa-bell"></i> Alerts</a></li>
-              <li><a href="#" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      
-      <main class="container dashboard">
-        <div class="dashboard-header">
-          <h1>Medical Staff Dashboard</h1>
-          <p>Monitor and manage patient care effectively</p>
-        </div>
-        
-        <div class="dashboard-grid">
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-clipboard-list"></i>
-              <h2>Medical Parameters</h2>
-            </div>
-            <p>Configure and monitor critical health parameters.</p>
-            <a href="#" class="card-link">Manage Parameters →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-file-medical-alt"></i>
-              <h2>Detailed Reports</h2>
-            </div>
-            <p>Access comprehensive health reports and histories.</p>
-            <a href="#" class="card-link">View Reports →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-chart-line"></i>
-              <h2>Technical Analytics</h2>
-            </div>
-            <p>Advanced data analysis and health trends.</p>
-            <a href="#" class="card-link">View Analytics →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-vial"></i>
-              <h2>Test Reports</h2>
-            </div>
-            <p>Review laboratory and diagnostic test results.</p>
-            <a href="#" class="card-link">View Test Reports →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-prescription"></i>
-              <h2>Prescription</h2>
-            </div>
-            <p>Manage medications and treatment plans.</p>
-            <a href="#" class="card-link">Manage Prescriptions →</a>
-          </div>
-          
-          <div class="dashboard-card">
-            <div class="card-header">
-              <i class="fas fa-id-card-alt"></i>
-              <h2>Patient Details</h2>
-            </div>
-            <p>Access personal information and medical history.</p>
-            <a href="#" class="card-link">View Patient Details →</a>
-          </div>
-        </div>
-        
-        <div class="patient-monitoring">
-          <div class="section-header">
-            <h2>Active Patients Monitoring</h2>
-            <div>
-              <button class="login-button">View All Patients</button>
-            </div>
-          </div>
-          
-          <div class="patient-stats">
-            <div class="stat-card">
-              <h3>Total Patients</h3>
-              <div class="stat-value">24</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Critical Condition</h3>
-              <div class="stat-value">3</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Stable Condition</h3>
-              <div class="stat-value">18</div>
-            </div>
-            
-            <div class="stat-card">
-              <h3>Improving</h3>
-              <div class="stat-value">3</div>
-            </div>
-          </div>
-          
-          <div class="patient-chart">
-            <img src="/api/placeholder/800/300" alt="Patient Statistics Chart">
-          </div>
-        </div>
-        
-        <div class="emergency-alert">
-          <div class="alert-header">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Emergency Alert Configuration</h2>
-          </div>
-          <div class="alert-content">
-            <p>Configure threshold parameters for the AI emergency alert system. When patient conditions fall below these thresholds, alerts will be automatically sent to on-duty staff with patient location details and to family guardians via mobile notifications.</p>
-            <button class="login-button" style="margin-top: 1rem;">Configure Alert Parameters</button>
-          </div>
-        </div>
-      </main>
-      
-      <footer>
-        <div class="container footer-content">
-          <div class="footer-column">
-            <h3>MediAlert</h3>
-            <p>Advanced healthcare monitoring system for medical professionals.</p>
-          </div>
-          
-          <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#">Dashboard</a></li>
-              <li><a href="#">Patients</a></li>
-              <li><a href="#">Analytics</a></li>
-              <li><a href="#">Alerts</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-column">
-            <h3>Resources</h3>
-            <ul>
-              <li><a href="#">Medical Library</a></li>
-              <li><a href="#">Technical Support</a></li>
-              <li><a href="#">Training Materials</a></li>
-              <li><a href="#">System Updates</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="copyright">
-          <p>&copy; 2025 MediAlert - Healthcare Monitoring System. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <script>
+<br/><br/>
+<div class="emergency-alert">
+<div class="alert-header">
+<i class="fas fa-exclamation-triangle"></i>
+<h2>Emergency Alert System</h2>
+</div>
+<div class="alert-content">
+<p>The system continuously monitors medical parameters 24/7. If the patient's condition falls below critical thresholds, immediate alerts will be sent to your phone and to stationed medical staff with the patient's location details.</p>
+</div>
+</div>
+</div></main>
+<footer>
+<div class="container footer-content">
+<div class="footer-column">
+<h3>MediAlert</h3>
+<p>Advanced healthcare monitoring for your peace of mind.</p>
+</div>
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="#">Dashboard</a></li>
+<li><a href="#">Health Feed</a></li>
+<li><a href="#">Reports</a></li>
+<li><a href="#">Alerts</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Support</h3>
+<ul>
+<li><a href="#">Help Center</a></li>
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">FAQs</a></li>
+<li><a href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="copyright">
+<p>© 2025 MediAlert - Healthcare Monitoring System. All rights reserved.</p>
+</div>
+</footer>
+</div>
+<!-- Medical Staff Dashboard -->
+<div id="medical-dashboard" style="display: none;">
+<header>
+<div class="container header-content">
+<div class="logo">
+<i class="fas fa-heartbeat"></i>
+<span>MediAlert</span>
+</div>
+<nav>
+<ul>
+<li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+<li><a href="#"><i class="fas fa-procedures"></i> Patients</a></li>
+<li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+<li><a href="#"><i class="fas fa-bell"></i> Alerts</a></li>
+<li><a class="logout-button" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container dashboard">
+<div class="dashboard-header">
+<h1>Medical Staff Dashboard</h1>
+<p>Monitor and manage patient care effectively</p>
+</div>
+<div class="dashboard-grid">
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-clipboard-list"></i>
+<h2>Medical Parameters</h2>
+</div>
+<p>Configure and monitor critical health parameters.</p>
+<a class="card-link" href="#">Manage Parameters →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-file-medical-alt"></i>
+<h2>Detailed Reports</h2>
+</div>
+<p>Access comprehensive health reports and histories.</p>
+<a class="card-link" href="#">View Reports →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-chart-line"></i>
+<h2>Technical Analytics</h2>
+</div>
+<p>Advanced data analysis and health trends.</p>
+<a class="card-link" href="#">View Analytics →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-vial"></i>
+<h2>Test Reports</h2>
+</div>
+<p>Review laboratory and diagnostic test results.</p>
+<a class="card-link" href="#">View Test Reports →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-prescription"></i>
+<h2>Prescription</h2>
+</div>
+<p>Manage medications and treatment plans.</p>
+<a class="card-link" href="#">Manage Prescriptions →</a>
+</div>
+<div class="dashboard-card">
+<div class="card-header">
+<i class="fas fa-id-card-alt"></i>
+<h2>Patient Details</h2>
+</div>
+<p>Access personal information and medical history.</p>
+<a class="card-link" href="#">View Patient Details →</a>
+</div>
+</div>
+<div class="patient-monitoring">
+<div class="section-header">
+<h2>Active Patients Monitoring</h2>
+<div>
+<button class="login-button">View All Patients</button>
+</div>
+</div>
+<div class="patient-stats">
+<div class="stat-card">
+<h3>Total Patients</h3>
+<div class="stat-value">24</div>
+</div>
+<div class="stat-card">
+<h3>Critical Condition</h3>
+<div class="stat-value">3</div>
+</div>
+<div class="stat-card">
+<h3>Stable Condition</h3>
+<div class="stat-value">18</div>
+</div>
+<div class="stat-card">
+<h3>Improving</h3>
+<div class="stat-value">3</div>
+</div>
+</div>
+<div class="patient-chart">
+<img alt="Patient Statistics Chart" src="/api/placeholder/800/300"/>
+</div>
+</div>
+<div class="emergency-alert">
+<div class="alert-header">
+<i class="fas fa-exclamation-triangle"></i>
+<h2>Emergency Alert Configuration</h2>
+</div>
+<div class="alert-content">
+<p>Configure threshold parameters for the AI emergency alert system. When patient conditions fall below these thresholds, alerts will be automatically sent to on-duty staff with patient location details and to family guardians via mobile notifications.</p>
+<button class="login-button" style="margin-top: 1rem;">Configure Alert Parameters</button>
+</div>
+</div>
+</main>
+<footer>
+<div class="container footer-content">
+<div class="footer-column">
+<h3>MediAlert</h3>
+<p>Advanced healthcare monitoring system for medical professionals.</p>
+</div>
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="#">Dashboard</a></li>
+<li><a href="#">Patients</a></li>
+<li><a href="#">Analytics</a></li>
+<li><a href="#">Alerts</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Resources</h3>
+<ul>
+<li><a href="#">Medical Library</a></li>
+<li><a href="#">Technical Support</a></li>
+<li><a href="#">Training Materials</a></li>
+<li><a href="#">System Updates</a></li>
+</ul>
+</div>
+</div>
+<div class="copyright">
+<p>© 2025 MediAlert - Healthcare Monitoring System. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</div>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
       // Get page elements
       const loginSection = document.getElementById('login-section');
