@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediAlert - Healthcare Monitoring System</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #2c3e50;
@@ -544,11 +545,45 @@
             </div>
           </div>
           
-          <div class="patient-chart">
-            <img src="/api/placeholder/800/300" alt="Health Metrics Chart">
-          </div>
-        </div>
-        
+          <div id="liveFeed" class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">📈 Live Heartbeat Feed</h2>
+            <canvas id="liveChart"></canvas>
+          </div><script>
+          let chart;
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Initialize the chart when the page loads
+  initChart();
+});
+
+function initChart() {
+  const ctx = document.getElementById('liveChart').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: 20 }, (_, i) => i),
+      datasets: [{
+        label: 'Heartbeat',
+        data: Array.from({ length: 20 }, () => 60 + Math.random() * 40),
+        borderColor: 'red',
+        fill: false,
+      }]
+    },
+    options: {
+      animation: false,
+      scales: { y: { min: 50, max: 120 } }
+    }
+  });
+
+  // Simulate live updates
+  setInterval(() => {
+    chart.data.datasets[0].data.shift();
+    chart.data.datasets[0].data.push(60 + Math.random() * 40);
+    chart.update();
+  }, 500);
+}
+</script>
+        <br><br>
         <div class="emergency-alert">
           <div class="alert-header">
             <i class="fas fa-exclamation-triangle"></i>
